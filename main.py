@@ -4,8 +4,8 @@ from model import *
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-fig_save = ''
-files = list_files('/Users/lexizhou/Desktop/RR_Data', 'csv')
+fig_save = '/home/wholebrain/Desktop/modeling_figures'
+files = list_files('RR_Data', 'csv')
 fully_trained_m1 = []
 fully_trained_m2 = []
 for f in files:
@@ -104,11 +104,11 @@ betamax = 1
 niter = 20
 
 #number of sessions per simulation
-nsessions = 1
+nsessions = 5
 # number of trials per session
-trials = 150
+trials = 300
 # number of simulations
-niter = 2
+niter = 5
 # number of starting points for optimizer
 nstartingpoints = 5
 
@@ -327,7 +327,7 @@ print('Best fit model_2 AIC={0}'.format(str((AIC2))))
 
 
 # # set the number of parameter samples
-nsamples = 2  # start with nsamples=2 to make sure your code works, then use 100 to draw better conclusions
+nsamples = 100  # start with nsamples=2 to make sure your code works, then use 100 to draw better conclusions
 
 # # set the number of learning sessions
 nsessions = 10  # also try 10, 100
