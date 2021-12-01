@@ -5,7 +5,7 @@ from utils import *
 fig_save = '/home/wholebrain/Desktop/modeling_figures'
 
 
-def plot_pellets(mouse, ID):
+def plot_pellets(mouse, ID, fig_save = False):
     """
     m_accept: dataframe of accept trials
     """
@@ -27,7 +27,8 @@ def plot_pellets(mouse, ID):
     ax.set_ylim(0, 1)
     ax.set_title(ID +': %pellets accepted across sessions')
     ax.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
-    fig.savefig(fig_save + '/flavor preference')
+    if fig_save is not False:
+        fig.savefig(fig_save + '/flavor preference')
     return ax
 
 
@@ -67,6 +68,8 @@ def plot_prob(mouse, ID, R, fig=False):
     ax.set_ylim(0, 1)
     ax.set_title(ID + ' :%pellets accepted from all sessions')
     ax.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
+    if fig_save is not False:
+        fig.savefig(fig_save + '/probability')
     return ax
 
 
