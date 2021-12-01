@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from utils import *
 
+fig_save = '/home/wholebrain/Desktop/modeling_figures'
+
 
 def plot_pellets(mouse, ID):
     """
@@ -25,7 +27,7 @@ def plot_pellets(mouse, ID):
     ax.set_ylim(0, 1)
     ax.set_title(ID +': %pellets accepted across sessions')
     ax.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
-    fig.savefig('/Users/lexizhou/Desktop/figures/flavor preference')
+    fig.savefig(fig_save + '/flavor preference')
     return ax
 
 

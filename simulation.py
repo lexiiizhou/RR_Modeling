@@ -109,10 +109,7 @@ def simulate_utility_interactive(param, rp_combo, R):
         widgets.interact(update2, alpha=param[0], delta=param[1], gamma=param[2])
     elif len(param) == 3:
         widgets.interact(update1, alpha=param[0], delta=param[1])
-#     fig.savefig('/Users/lexizhou/Desktop/figures/utility given r, p')
-
-
-import time
+    # fig.savefig('/Users/lexizhou/Desktop/figures/utility given r, p')
 
 
 def simulate(param, n, trials, R=None, Random=False):
