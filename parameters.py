@@ -74,14 +74,14 @@ model probability as being continuous rather than discrete(i.e. 0, 0.2, 0.8, 1),
 hence wait time becomes continuous
 """
 
-p = np.arange(0, 1, 0.02)
-t = np.array([wait_time(i) for i in p])
-
-fig = plt.figure()
-plt.plot(p, t)
-plt.title('wait time determined by probability')
-plt.xlabel('probability')
-plt.ylabel('wait time')
+# p = np.arange(0, 1, 0.02)
+# t = np.array([wait_time(i) for i in p])
+#
+# fig = plt.figure()
+# plt.plot(p, t)
+# plt.title('wait time determined by probability')
+# plt.xlabel('probability')
+# plt.ylabel('wait time')
 # fig.savefig('/Users/lexizhou/Desktop/figures/wait_time')
 
 
@@ -94,17 +94,17 @@ p = np.arange(0, 1, 0.02)
 t = np.array([wait_time(i) for i in p])
 """
 
-fig = plt.figure()
-for d in delta:
-    time_discounting = []
-    for p_i in p:
-        time_discounting.append(d**(wait_time(p_i)))
-    plt.plot(t, time_discounting, label='delta: '+str(round(d, 4)))
-plt.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
-plt.tight_layout()
-plt.title('time discounting param delta')
-plt.xlabel('wait time as determined by probability')
-plt.ylabel('discounting factor')
+# fig = plt.figure()
+# for d in delta:
+#     time_discounting = []
+#     for p_i in p:
+#         time_discounting.append(d**(wait_time(p_i)))
+#     plt.plot(t, time_discounting, label='delta: '+str(round(d, 4)))
+# plt.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
+# plt.tight_layout()
+# plt.title('time discounting param delta')
+# plt.xlabel('wait time as determined by probability')
+# plt.ylabel('discounting factor')
 # fig.savefig('/Users/lexizhou/Desktop/figures/delta')
 
 # Higher delta means less sensitive to wait time discount
@@ -117,23 +117,23 @@ uniform_prob = []
 for i in range(n):
     uniform_prob.append(np.random.choice([0, 0.2, 0.8, 1]))
 
-fig = plt.figure()
-count, bins, ignored = plt.hist(uniform_prob, 8, facecolor='lightsalmon')
-plt.plot([0, 0.2, 0.8, 1], list(count[:2]) + list(count[-2:]), color = 'black')
-plt.xlabel('p')
-plt.ylabel('Count')
-plt.title("Underlying Distribution for Reward Probability(Uniform)")
-plt.axis([-0.1, 1.1, 0, 5000]) # x_start, x_end, y_start, y_end
-plt.grid(True)
+# fig = plt.figure()
+# count, bins, ignored = plt.hist(uniform_prob, 8, facecolor='lightsalmon')
+# plt.plot([0, 0.2, 0.8, 1], list(count[:2]) + list(count[-2:]), color = 'black')
+# plt.xlabel('p')
+# plt.ylabel('Count')
+# plt.title("Underlying Distribution for Reward Probability(Uniform)")
+# plt.axis([-0.1, 1.1, 0, 5000]) # x_start, x_end, y_start, y_end
+# plt.grid(True)
 
 """gamma is similiar to a summary statistics of this underlying distribution"""
-gamma = np.arange(-0.5, 0.6, 0.25)
-for g in gamma:
-    plt.vlines(x=g+0.5, ymin=2000, ymax=2800, ls='-', lw=2)
-    plt.text(g+0.45, 3000, 'g: '+str(round(g, 4)), fontsize=12)
-plt.text(0.43, 4100, 'Neural', fontsize = 14, color = 'blue')
-plt.text(0.8, 4100, 'Optimistic', fontsize = 14, color = 'green')
-plt.text(0.0, 4100, 'Pessimistic', fontsize=14, color = 'red')
+# gamma = np.arange(-0.5, 0.6, 0.25)
+# for g in gamma:
+#     plt.vlines(x=g+0.5, ymin=2000, ymax=2800, linestyles='-', lw=2)
+#     plt.text(g+0.45, 3000, 'g: '+str(round(g, 4)), fontsize=12)
+# plt.text(0.43, 4100, 'Neural', fontsize = 14, color = 'blue')
+# plt.text(0.8, 4100, 'Optimistic', fontsize = 14, color = 'green')
+# plt.text(0.0, 4100, 'Pessimistic', fontsize=14, color = 'red')
 # fig.savefig('/Users/lexizhou/Desktop/figures/gamma')
 
 

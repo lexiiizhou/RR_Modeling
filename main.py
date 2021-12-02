@@ -4,6 +4,7 @@ from model import *
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 fig_save = '/home/wholebrain/Desktop/modeling_figures'
 files = list_files('RR_Data', 'csv')
 fully_trained_m1 = []
@@ -67,22 +68,22 @@ for r in res:
 """""Model Simulation"""""
 """"""""""""""""""""""""""
 
-alphai = (0.1, 1, 0.1)
-deltai = (0.1, 1, 0.1)
-gammai = (-0.5, 0.4, 0.1)
-betai = 5
-
-nsessions = 5
-trials = 300
-
-iparam_2 = [alphai, deltai, gammai, betai]
-iparam_1 = [alphai, deltai, betai]
-
-simulate_utility_interactive(iparam_1, rp_combo, restaurant_val(mouse_1))
-simulate_utility_interactive(iparam_2, rp_combo, restaurant_val(mouse_1))
-
-plot_sim_interactive(iparam_1, nsessions, trials)
-plot_sim_interactive(iparam_2, nsessions, trials)
+# alphai = (0.1, 1, 0.1)
+# deltai = (0.1, 1, 0.1)
+# gammai = (-0.5, 0.4, 0.1)
+# betai = 5
+#
+# nsessions = 5
+# trials = 300
+#
+# iparam_2 = [alphai, deltai, gammai, betai]
+# iparam_1 = [alphai, deltai, betai]
+#
+# simulate_utility_interactive(iparam_1, rp_combo, restaurant_val(mouse_1))
+# simulate_utility_interactive(iparam_2, rp_combo, restaurant_val(mouse_1))
+#
+# plot_sim_interactive(iparam_1, nsessions, trials)
+# plot_sim_interactive(iparam_2, nsessions, trials)
 
 """"""""""""""""""""""""""
 """Generate and Recover"""
@@ -154,9 +155,10 @@ for p in range(3):
     plt.ylabel('recovered parameter')
     plt.title(pname[p])
     plt.tight_layout()
+fig.savefig(fig_save + '/generate_and_recover_model1')
 
 # look for correlations in fit parameters
-fig = plt.figure()
+fig2 = plt.figure()
 plt.subplot(1, 4, 1)
 sns.regplot(genrec[:, 3], genrec[:, 4])
 plt.xlabel('recovered alpha')
@@ -186,6 +188,8 @@ plt.errorbar(range(len(mean_optimcurve)), np.mean(optimcurve, axis=0), yerr=se_o
 plt.xlabel('random starting point number')
 plt.ylabel('optimum llh')
 plt.tight_layout()
+
+fig2.savefig(fig_save + '/correlation_model1')
 
 """generate and recover for model 2"""
 
@@ -230,6 +234,7 @@ for p in range(4):
     plt.ylabel('recovered parameter')
     plt.title(pname[p])
     plt.tight_layout()
+fig1.savefig(fig_save + '/generate_and_recover_model2')
 
 # look for correlations in fit parameters
 fig2 = plt.figure()
@@ -274,6 +279,8 @@ plt.xlabel('recovered gamma')
 plt.ylabel('recovered beta')
 plt.title('correlations?')
 plt.tight_layout()
+
+fig2.savefig(fig_save + '/correlation_model2')
 
 # # see if the number of starting points is satisfying.
 fig3 = plt.figure()
@@ -424,3 +431,75 @@ plt.ylabel('simulating model')
 plt.title('Proportion of samples with best BIC')
 
 plt.tight_layout()
+
+
+""""""""""""""""""""""""""
+"""""Model Validation"""""
+""""""""""""""""""""""""""
+
+alphamin = 0.01
+alphamax = 1
+deltamin = 0.01
+deltamax = 1
+gammamin = -0.49999
+gammamax = 0.49999
+betamin = 0
+betamax = 1
+bounds_2 = [[alphamin, alphamax], [deltamin, deltamax], [gammamin, gammamax], [betamin, betamax]]
+bounds_1 = [[alphamin, alphamax], [deltamin, deltamax], [betamin, betamax]]
+niter = 20
+
+"""RRM028"""
+bestparameters1_RRM028, bestllh1_RRM028 = optimize(llh, restaurant_val(mouse_1), bounds_1, mouse_1, niter, toplot=True)
+bestparameters2_RRM028, bestllh2_RRM028 = optimize(llh, restaurant_val(mouse_1), bounds_2, mouse_1, niter, toplot=True)
+
+print('RRM028')
+print('best loglikelihood for model 1 is {0}'.format(bestllh1_RRM028))
+print('best loglikelihood for model 2 is {0}'.format(bestllh2_RRM028))
+print('best alpha for model 1 is {0}, best alpha for model 2 is {1}'.format(bestparameters1_RRM028[0], bestparameters2_RRM028[0]))
+print('best delta for model 1 is {0}, best delta for model 2 is {1}'.format(bestparameters1_RRM028[1], bestparameters2_RRM028[1]))
+print('best beta for model 1 is {0}, best beta for model 2 is {1}'.format(bestparameters1_RRM028[-1], bestparameters2_RRM028[-1]))
+print('best gamma for model 2 is {1}'.format(bestparameters2_RRM028[2]))
+
+"""RRM028"""
+bestparameters1_RRM029, bestllh1_RRM029 = optimize(llh, restaurant_val(mouse_1), bounds_1, mouse_1, niter, toplot=True)
+bestparameters2_RRM029, bestllh2_RRM029 = optimize(llh, restaurant_val(mouse_1), bounds_2, mouse_1, niter, toplot=True)
+
+print('RRM029')
+print('best loglikelihood for model 1 is {0}'.format(bestllh1_RRM029))
+print('best loglikelihood for model 2 is {0}'.format(bestllh2_RRM029))
+print('best alpha for model 1 is {0}, best alpha for model 2 is {1}'.format(bestparameters1_RRM029[0], bestparameters2_RRM029[0]))
+print('best delta for model 1 is {0}, best delta for model 2 is {1}'.format(bestparameters1_RRM029[1], bestparameters2_RRM029[1]))
+print('best beta for model 1 is {0}, best beta for model 2 is {1}'.format(bestparameters1_RRM029[-1], bestparameters2_RRM029[-1]))
+print('best gamma for model 2 is {1}'.format(bestparameters2_RRM029[2]))
+
+
+nsessions = 3
+trials = 300
+
+parameters_028 = [bestparameters1_RRM028, bestparameters2_RRM028]
+bestllh_028 = [bestllh1_RRM028, bestllh2_RRM028]
+bestfit_028_index = parameters_028.index(max(bestllh_028))
+bestfit_028 = parameters_028[bestfit_028_index]
+R_028 = restaurant_val(mouse_1)
+
+simulated_028 = simulate(bestfit_028, nsessions, trials, R=R_028)
+simulated_028 = pd.DataFrame(Data, columns=['session_day', 'trial', 'restaurant', 'tone_prob', 'accept', 'U', 'choice_p'])
+
+plot_prob(simulated_028, 'RRM028 Simulated', R_028, fig_save+'/validation')
+plot_pellets(simulated_028, 'RRM028 Simulated')
+
+nsessions = 3
+trials = 300
+
+parameters_029 = [bestparameters1_RRM029, bestparameters2_RRM029]
+bestllh_029 = [bestllh1_RRM029, bestllh2_RRM029]
+bestfit_029_index = parameters_029.index(max(bestllh_029))
+bestfit_029 = parameters_029[bestfit_029_index]
+R_029 = restaurant_val(mouse_2)
+
+simulated_029 = simulate(bestfit_029, nsessions, trials, R=R_029)
+simulated_029 = pd.DataFrame(Data, columns=['session_day', 'trial', 'restaurant', 'tone_prob', 'accept', 'U', 'choice_p'])
+
+plot_prob(simulated_029, 'RRM029 Simulated', R_029, fig_save+'/validation')
+plot_pellets(simulated_029, 'RRM029 Simulated')
