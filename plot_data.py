@@ -32,7 +32,7 @@ def plot_pellets(mouse, ID, fig_save = False):
     return ax
 
 
-def plot_prob(mouse, ID, R, fig=False):
+def plot_prob(mouse, ID, R, fig_save=False):
     """
     m_accept: dataframe of accept trials
     """
@@ -44,10 +44,10 @@ def plot_prob(mouse, ID, R, fig=False):
         if len(accepts) == 0:
             return 'no accepts', 'nothing', 'here'
 
-        zero = len(accepts[accepts['tone_prob'] == 0] ) /len(accepts)
-        twenty = len(accepts[accepts['tone_prob'] == 0.2] ) /len(accepts)
-        eighty = len(accepts[accepts['tone_prob'] == 0.8] ) /len(accepts)
-        hundred= len(accepts[accepts['tone_prob'] == 1] ) /len(accepts)
+        zero = len(accepts[accepts['tone_prob'] == 0]) / len(accepts)
+        twenty = len(accepts[accepts['tone_prob'] == 0.2]) / len(accepts)
+        eighty = len(accepts[accepts['tone_prob'] == 0.8]) / len(accepts)
+        hundred = len(accepts[accepts['tone_prob'] == 1]) / len(accepts)
         accept_perc = [zero, twenty, eighty, hundred]
         all_accepts.append(accept_perc)
 

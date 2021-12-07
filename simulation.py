@@ -1,8 +1,21 @@
-from main import *
 from model import *
 from parameters import *
 from ipywidgets import *
 import random
+
+
+res = [1, 2, 3, 4]
+prob = [0, 0.2, 0.8, 1]
+restaurant_iter = {1: 2,
+                   2: 3,
+                   3: 4,
+                   4: 1}
+
+rp_combo = []
+for r in res:
+    for p in prob:
+        combo = [r, p]
+        rp_combo.append(combo)
 
 
 def simulate_utility(params, rp_combo, R, ax=None):
@@ -110,7 +123,6 @@ def simulate_utility_interactive(param, rp_combo, R):
     elif len(param) == 3:
         widgets.interact(update1, alpha=param[0], delta=param[1])
     # fig.savefig('/Users/lexizhou/Desktop/figures/utility given r, p')
-
 
 def simulate(param, n, trials, R=None, Random=False):
     """simulate choice for n sessions of #trials w/ fixed beta=5"""
