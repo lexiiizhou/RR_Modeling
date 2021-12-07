@@ -49,10 +49,8 @@ def u_reject(r, p, param, R):
                        2: 3,
                        3: 4,
                        4: 1}
-    alpha = param[0]
     delta = param[1]
     gamma = param[2]
-    r_next = restaurant_iter[r] # r_next is the index of the next restaurant
     prob_conj = gamma + 0.5
     wait = wait_time(prob_conj)
     return np.nan_to_num((prob_conj)*R[r-1]*(delta**wait))

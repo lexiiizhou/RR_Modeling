@@ -275,7 +275,7 @@ def plot_sim_interactive(param, sessions, trials):
         widgets.interact(update1, alpha=param[0], delta=param[1], beta=param[2])
 
 
-def plot_sim(param, sessions, trials, Random=False, R=None):
+def plot_sim(param, sessions, trials, Random=False, R=None, fig_save=None):
     simulated_data = None
     if Random == True:
         simulated_data, R = simulate(param, sessions, trials, Random=True)
@@ -324,6 +324,7 @@ def plot_sim(param, sessions, trials, Random=False, R=None):
     ax1.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
 
     ax2 = fig.add_subplot(1, 2, 2, projection='3d')
+    fig.savefig(fig_save)
     simulate_utility(param, rp_combo, R, ax2)
     return fig, simulated_data, param
 
